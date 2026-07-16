@@ -4,29 +4,31 @@ import 'package:calculator_app/operations_tab.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
-  _HomePageState createState() => _HomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  var _currentIndex = 0;
+  int _currentIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calculator'),
+        title: const Text('Calculator'),
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.table_chart),
-            title: Text('Operations'),
+            label: 'Operations',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.history),
-            title: Text('History'),
+            label: 'History',
           ),
         ],
         onTap: (index) {
@@ -41,7 +43,7 @@ class _HomePageState extends State<HomePage> {
           OperationsTab(
             calculator: InheritedCalculator.of(context).calculator,
           ),
-          HistoryTab(),
+          const HistoryTab(),
         ],
       ),
     );

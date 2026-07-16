@@ -1,3 +1,10 @@
+
+enum Operations {
+  add,
+  substract,
+  multiply,
+  divide,
+}
 /// Tiny number calculator for just two numbers
 class Calculator {
   double add(double a, double b) => a + b;

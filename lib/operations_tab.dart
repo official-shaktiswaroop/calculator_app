@@ -1,20 +1,17 @@
-import 'package:calculator_app/models/models.dart';
+import 'package:calculator/calculator.dart';
 import 'package:flutter/material.dart';
 import 'package:material_segmented_control/material_segmented_control.dart';
 
-import 'package:calculator/calculator.dart';
-
 class OperationsTab extends StatefulWidget {
   const OperationsTab({
-    Key key,
-    @required this.calculator,
-  })  : assert(calculator != null),
-        super(key: key);
+    super.key,
+    required this.calculator,
+  });
 
   final Calculator calculator;
 
-  @override
-  _OperationsTabState createState() => _OperationsTabState();
+ @override
+State<OperationsTab> createState() => _OperationsTabState();
 }
 
 class _OperationsTabState extends State<OperationsTab> {
@@ -23,8 +20,8 @@ class _OperationsTabState extends State<OperationsTab> {
 
   var _isSaveButtonEnabled = false;
 
-  Operations _selectedOperation;
-  double _result;
+  Operations? _selectedOperation;
+  double? _result;
 
   @override
   void initState() {
@@ -60,19 +57,19 @@ class _OperationsTabState extends State<OperationsTab> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: MaterialSegmentedControl(
+            child: MaterialSegmentedControl<int>(
               children: {
-                0: Text('+'),
-                1: Text('-'),
-                2: Text('x'),
-                3: Text('/'),
+                0: const Text('+'),
+                1: const Text('-'),
+                2: const Text('x'),
+                3: const Text('/'),
               },
               selectionIndex: _selectedOperation?.index,
               borderColor: Colors.grey,
               selectedColor: Colors.blue,
               unselectedColor: Colors.white,
               borderRadius: 32.0,
-              onSegmentChosen: (index) {
+              onSegmentTapped: (index) {
                 setState(() {
                   _selectedOperation = Operations.values[index];
                   _calculateResult();
@@ -95,15 +92,15 @@ class _OperationsTabState extends State<OperationsTab> {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12.0),
             child: Text(
-              _result != null ? '$_result' : '--',
-              style: Theme.of(context).textTheme.headline4,
+              '$_result',
+              style: Theme.of(context).textTheme.headlineMedium,
               textAlign: TextAlign.end,
             ),
           ),
-          ButtonBar(
+          OverflowBar(
             children: [
-              OutlineButton(
-                child: Text('Clear'),
+              OutlinedButton(
+                child: const Text('Clear'),
                 onPressed: () {
                   setState(() {
                     _input1Controller.clear();
@@ -113,8 +110,8 @@ class _OperationsTabState extends State<OperationsTab> {
                   });
                 },
               ),
-              OutlineButton(
-                child: Text('Save'),
+              OutlinedButton(
+                child: const Text('Save'),
                 onPressed: _isSaveButtonEnabled ? () {} : null,
               ),
             ],
@@ -132,7 +129,7 @@ class _OperationsTabState extends State<OperationsTab> {
       _isSaveButtonEnabled = false;
     } else {
       _isSaveButtonEnabled = true;
-      _result = _calculate(input1, input2, _selectedOperation);
+      _result = _calculate(input1, input2, _selectedOperation!);
     }
   }
 
@@ -145,7 +142,6 @@ class _OperationsTabState extends State<OperationsTab> {
       case Operations.multiply:
         return widget.calculator.multiply(a, b);
       case Operations.divide:
-      default:
         return widget.calculator.divide(a, b);
     }
   }

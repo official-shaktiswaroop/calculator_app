@@ -1,16 +1,17 @@
 name: calculator_app
+publish_to: none
 description: Calculator - Caster.IO project to showcase testing techniques
 version: 1.0.0
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
   calculator:
     path: packages/calculator
-  material_segmented_control: 2.1.0+1
+  material_segmented_control: ^5.0.1
 
 dev_dependencies:
   flutter_test:

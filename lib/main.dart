@@ -1,9 +1,9 @@
-import 'package:calculator_app/home_page.dart';
-import 'package:calculator_app/inherited_widgets/inherited_widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:calculator/calculator.dart';
+import 'package:calculator_app/home_page.dart';
+import 'package:calculator_app/inherited_widgets/inherited_calculator.dart';
+import 'package:flutter/material.dart';
 
-void main() async {
+void main() {
   runApp(
     CalculatorApp(
       calculator: Calculator(),
@@ -12,21 +12,25 @@ void main() async {
 }
 
 class CalculatorApp extends StatelessWidget {
-  const CalculatorApp({
-    Key key,
-    @required this.calculator,
-  })  : assert(calculator != null),
-        super(key: key);
-
   final Calculator calculator;
+
+  const CalculatorApp({
+    super.key,
+    required this.calculator,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Calculator',
-      home: InheritedCalculator(
-        calculator: calculator,
-        child: HomePage(),
+    return InheritedCalculator(
+      calculator: calculator,
+      child: MaterialApp(
+        title: 'Calculator',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: Colors.blue,
+          ),
+        ),
+        home: const HomePage(),
       ),
     );
   }
