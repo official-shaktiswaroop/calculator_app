@@ -13,5 +13,14 @@ class Calculator {
 
   double multiply(double a, double b) => a * b;
 
-  double divide(double a, double b) => a / b;
+  double divide(double a, double b) {
+    if (b == 0) {
+      throw ArgumentError('Cannot divide by zero');
+    }
+    return a / b;
+  }
+
+  Future<double> powerOfTwo(double a) async {
+    return Future.delayed(Duration(seconds: 1), () => a * a);
+  }
 }
